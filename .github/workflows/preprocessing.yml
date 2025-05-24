@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - preprocessing/automate.py
-      - ./dataset/failure-heart.csv
+      - dataset/failure-heart.csv
   workflow_dispatch:
 
 jobs:
