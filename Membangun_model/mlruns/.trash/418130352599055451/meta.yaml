@@ -1,7 +1,0 @@
-artifact_location: mlflow-artifacts:/418130352599055451
-creation_time: 1747926700309
-experiment_id: '418130352599055451'
-last_update_time: 1747927604293
-lifecycle_stage: deleted
-name: Online Training Iris
-tags: {}
