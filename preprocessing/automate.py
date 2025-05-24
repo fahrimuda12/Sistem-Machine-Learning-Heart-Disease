@@ -1,3 +1,4 @@
+# %%
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from joblib import dump
@@ -66,12 +67,12 @@ def preprocess_data(data, target_column, save_path, file_path):
 # %%
 import pandas as pd
 # Memuat dataset
-data = pd.read_csv('../dataset/student_habits_performance.csv', sep=',')
+data = pd.read_csv('../dataset/failure-heart.csv', sep=',')
 data.head()
 
 # %%
 # Contoh Penggunaan
-X_train, X_test, y_train, y_test = preprocess_data(data, 'exam_score', 'preprocessor_pipeline.joblib', 'data.csv')
+X_train, X_test, y_train, y_test = preprocess_data(data, 'HeartDisease', 'preprocessor_pipeline.joblib', 'data.csv')
 
 # %%
 from joblib import dump, load
@@ -106,29 +107,86 @@ def inverse_transform_data(transformed_data, load_path, new_data_columns):
     return inversed_data
 
 # %%
+# import numpy as np
+
+# # Jalankan preprocessing
+# pipeline_path = 'preprocessor_pipeline.joblib'
+# col = pd.read_csv('data.csv')
+
+
+# new_data = [
+#    'S2000',         # student_id
+#    21,              # age
+#    'Female',        # gender
+#    3.5,             # study_hours_per_day
+#    2.0,             # social_media_hours
+#    1.5,             # netflix_hours
+#    'No',            # part_time_job
+#    90.0,            # attendance_percentage
+#    7.0,             # sleep_hours
+#    'Good',          # diet_quality
+#    4,               # exercise_frequency
+#    'Bachelor',      # parental_education_level
+#    'Good',          # internet_quality
+#    7,               # mental_health_rating
+#    'Yes'            # extracurricular_participation
+# ]
+
+# # Mengubah menjadi numpy.ndarray
+# new_data = np.array(new_data)
+
+# new_data = pd.DataFrame([new_data], columns=col.columns)
+# # Lakukan inference
+# transformed_data = inference(new_data, pipeline_path)
+
+# %%
+# transformed_data
+
+# %%
+# preprocessor = load('preprocessor_pipeline.joblib')
+# preprocessor
+
+# %%
+# numeric_transformer = preprocessor.named_transformers_['num']['scaler']
+# numeric_transformer
+
+# %%
+# numeric_columns = new_data.columns[:len(numeric_transformer.mean_)]  # Asumsi fitur numerik ada di awal
+# numeric_columns
+
+# %%
+# transformed_numeric_data = transformed_data[:, :len(numeric_columns)]
+# transformed_numeric_data
+
+# %%
+# # Inverse transform untuk data numerik
+# # Jika data numerik hasil transformasi bertipe sparse matrix, ubah ke dense sebelum inverse_transform
+# if hasattr(transformed_numeric_data, "toarray"):
+#    transformed_numeric_data_dense = transformed_numeric_data.toarray()
+# else:
+#    transformed_numeric_data_dense = transformed_numeric_data
+
+# original_numeric_data = numeric_transformer.inverse_transform(transformed_numeric_data_dense)
+# original_numeric_data
+
+# %%
 import numpy as np
 # Jalankan preprocessing
 pipeline_path = 'preprocessor_pipeline.joblib'
 col = pd.read_csv('data.csv')
-# Daftar data
-# Contoh data baru, urut sesuai kolom pada data.csv
-# ['student_id', 'age', 'gender', 'study_hours_per_day', 'social_media_hours', 'netflix_hours', 'part_time_job', 'attendance_percentage', 'sleep_hours', 'diet_quality', 'exercise_frequency', 'parental_education_level', 'internet_quality', 'mental_health_rating', 'extracurricular_participation']
+
 new_data = [
-   'S2000',         # student_id
-   21,              # age
-   'Female',        # gender
-   3.5,             # study_hours_per_day
-   2.0,             # social_media_hours
-   1.5,             # netflix_hours
-   'No',            # part_time_job
-   90.0,            # attendance_percentage
-   7.0,             # sleep_hours
-   'Good',          # diet_quality
-   4,               # exercise_frequency
-   'Bachelor',      # parental_education_level
-   'Good',          # internet_quality
-   7,               # mental_health_rating
-   'Yes'            # extracurricular_participation
+   55,                # Age (int)
+   'F',               # Sex (object)
+   'NAP',             # ChestPainType (object)
+   135,               # RestingBP (int)
+   250,               # Cholesterol (int)
+   0,                 # FastingBS (int)
+   'Normal',          # RestingECG (object)
+   150,               # MaxHR (int)
+   'N',               # ExerciseAngina (object)
+   1.0,               # Oldpeak (float)
+   'Flat'             # ST_Slope (object)
 ]
 
 # Mengubah menjadi numpy.ndarray
