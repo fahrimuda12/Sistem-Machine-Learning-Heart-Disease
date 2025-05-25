@@ -1,3 +1,8 @@
 # venv
 Membangun_model/myenv/
 Membangun_model/myenv/*
+
+Workflow-CI/MLProject/myenv
+Workflow-CI/MLProject/myenv/*
+Workflow-CI/MLProject/mlruns
+Workflow-CI/MLProject/mlruns/*

@@ -3,7 +3,7 @@ name: Retrain ML Model
 on:
   push:
     paths:
-      - 'MLProject/**'
+      - 'Workflow-CI/MLProject/**'
   workflow_dispatch:
 
 jobs:
