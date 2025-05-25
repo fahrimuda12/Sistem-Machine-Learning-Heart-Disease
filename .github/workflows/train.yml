@@ -26,5 +26,5 @@ jobs:
 
     - name: Run MLflow Project
       run: |
-        cd MLProject
+        cd Workflow-CI/MLProject
         mlflow run . --experiment-name "CI Retraining Heart Disease"
