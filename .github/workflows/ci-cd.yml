@@ -48,7 +48,7 @@ jobs:
       - name: Run mlflow project
         run: |
           cd Workflow-CI/MLProject
-          mlflow run .
+          mlflow run . --experiment-name "$EXPERIMENT_NAME" --env-manager=conda
       
       # Get latest run_id
       - name: Get latest MLflow run_id
