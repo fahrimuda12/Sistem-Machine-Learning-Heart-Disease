@@ -10,13 +10,15 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.utils import shuffle
 from mlflow.models.signature import infer_signature
-
+import os
 
 
 dagshub.init(repo_owner='fahrimuda12', repo_name='heart-disease', mlflow=True)
 # Set MLflow Tracking URI
 # mlflow.set_tracking_uri("http://127.0.0.1:5000/")
 mlflow.set_tracking_uri("https://dagshub.com/fahrimuda12/heart-disease.mlflow")
+mlflow.set_tracking_username(os.environ["MLFLOW_TRACKING_USERNAME"])
+mlflow.set_tracking_password(os.environ["MLFLOW_TRACKING_PASSWORD"])
 
 # Create a new MLflow Experiment
 mlflow.set_experiment("Online Training Heart Disease Failure")
