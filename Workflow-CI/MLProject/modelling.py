@@ -6,9 +6,8 @@ import dagshub
 import joblib
 from dagshub import dagshub_logger
 from sklearn.linear_model import SGDClassifier
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-from sklearn.utils import shuffle
 from mlflow.models.signature import infer_signature
 import os
 import warnings
