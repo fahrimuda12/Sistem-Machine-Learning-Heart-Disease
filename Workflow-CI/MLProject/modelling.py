@@ -19,7 +19,7 @@ mlflow.set_tracking_username(os.environ["MLFLOW_TRACKING_USERNAME"])
 mlflow.set_tracking_password(os.environ["MLFLOW_TRACKING_PASSWORD"])
 
 # Nama eksperimen yang ingin dicari
-experiment_name = "Online Training Heart Disease Failure"
+experiment_name = "heart_online_disease_failure_training"
 
 # Create a new MLflow Experiment
 mlflow.set_experiment(experiment_name)
