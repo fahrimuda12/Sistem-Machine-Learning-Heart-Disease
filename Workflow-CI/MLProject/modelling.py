@@ -14,6 +14,11 @@ import os
 
 
 dagshub.init(repo_owner='fahrimuda12', repo_name='heart-disease', mlflow=True)
+
+# print environment variables for debugging
+print("MLFLOW_TRACKING_USERNAME:", os.environ.get("MLFLOW_TRACKING_USERNAME"))
+print("MLFLOW_TRACKING_PASSWORD:", os.environ.get("MLFLOW_TRACKING_PASSWORD"))
+
 # Set MLflow Tracking URI
 # mlflow.set_tracking_uri("http://127.0.0.1:5000/")
 mlflow.set_tracking_uri("https://dagshub.com/fahrimuda12/heart-disease.mlflow")
