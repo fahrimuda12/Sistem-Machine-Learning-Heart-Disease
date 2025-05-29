@@ -28,14 +28,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v3
 
-
-      - name: Set up Conda
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          activate-environment: mlflow-env
-          environment-file: MLProject/conda.yaml
-          auto-activate-base: false
-
       # Setup Python 3.12.7
       - name: Set up Python 3.12.7
         uses: actions/setup-python@v4
@@ -47,8 +39,11 @@ jobs:
         run: |
           echo $CSV_URL
       # Install mlflow
-      - name: Install dependencies
+      - name: Install dependencies and setup Conda environment
         run: |
+          sudo apt-get install -y conda
+          conda create -n mlflow-env python=3.12.7 -y
+          source activate mlflow-env
           python -m pip install --upgrade pip
           pip install mlflow dagshub
           
