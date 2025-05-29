@@ -29,12 +29,13 @@ jobs:
       - uses: actions/checkout@v3
 
 
-      - name: Set up Conda
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          activate-environment: mlflow-env
-          environment-file: Workflow-CI/MLProject/conda.yaml
-          auto-activate-base: false
+      # - name: Set up Conda
+      #   uses: conda-incubator/setup-miniconda@v2
+      #   with:
+      #     auto-update-conda: true
+      #     activate-environment: mlflow-env
+      #     environment-file: Workflow-CI/MLProject/conda.yaml
+      #     auto-activate-base: false
 
       # Setup Python 3.12.7
       - name: Set up Python 3.12.7
@@ -50,13 +51,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mlflow dagshub
+          pip install -r requirements.txt
+          pip install dagshub
           
       # Run as a mlflow project
       - name: Run mlflow project
         run: |
           cd Workflow-CI/MLProject
-          mlflow run . --experiment-name "$EXPERIMENT_NAME" --env-manager=conda
+          mlflow run . --env-manager=local 
       
       # Save models to GitHub Repository
       - name: Save mlruns to repo
