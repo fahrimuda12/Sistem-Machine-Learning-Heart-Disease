@@ -51,6 +51,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          cd Workflow-CI/MLProject
           pip install -r requirements.txt
           pip install dagshub
           
