@@ -12,6 +12,24 @@ from sklearn.utils import shuffle
 from mlflow.models.signature import infer_signature
 import os
 
+# Set MLflow Tracking URI
+# mlflow.set_tracking_uri("http://127.0.0.1:5000/")
+mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
+mlflow.set_tracking_username(os.environ["MLFLOW_TRACKING_USERNAME"])
+mlflow.set_tracking_password(os.environ["MLFLOW_TRACKING_PASSWORD"])
+
+# Nama eksperimen yang ingin dicari
+experiment_name = "Online Training Heart Disease Failure"
+
+# Create a new MLflow Experiment
+mlflow.set_experiment(experiment_name)
+
+# Optional: Lihat apakah experiment berhasil di-set
+experiment = mlflow.get_experiment_by_name(experiment_name)
+print("Experiment ID:", experiment.experiment_id)
+
+
+
 
 # Memuat dataset 
 data = pd.read_csv('./dataset/failure_heart_preprocessing.csv', sep=',')
