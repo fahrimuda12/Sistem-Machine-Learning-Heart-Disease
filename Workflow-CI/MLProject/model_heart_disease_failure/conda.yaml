@@ -10,5 +10,4 @@ dependencies:
   - pandas==2.2.3
   - scikit-learn==1.6.1
   - scipy==1.15.3
-  - dagshub==0.5.10
 name: mlflow-env
