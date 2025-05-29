@@ -41,6 +41,7 @@ jobs:
       # Install mlflow
       - name: Install dependencies and setup Conda environment
         run: |
+          cd Workflow-CI/MLProject
           sudo apt-get install -y conda
           conda create -n mlflow-env python=3.12.7 -y
           source activate mlflow-env
