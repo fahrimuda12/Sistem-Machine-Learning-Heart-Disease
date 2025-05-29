@@ -1,6 +1,6 @@
 import pandas as pd
 import mlflow
-import numpy as np
+import numpy as np 
 import mlflow.sklearn
 import dagshub
 import joblib
@@ -24,6 +24,8 @@ if __name__ == "__main__":
     experiment_name = "model_heart_disease_failure"
 
     # Create a new MLflow Experiment
+    # Ensure experiment name is valid (no spaces or special characters)
+    experiment_name = experiment_name.replace(" ", "_").replace("-", "_")
     mlflow.set_experiment(experiment_name)
 
     # Optional: Lihat apakah experiment berhasil di-set
@@ -70,9 +72,6 @@ if __name__ == "__main__":
                 clf.partial_fit(X_batch, y_batch, classes=np.unique(y_train))
             else:
                 clf.partial_fit(X_batch, y_batch)
-            
-            # Optional: Simpan model sementara tiap batch
-            joblib.dump(clf, f"result/model_batch_{i+1}.pkl")
 
         # Inference setelah semua batch
         y_pred = clf.predict(X_test)
@@ -99,29 +98,15 @@ if __name__ == "__main__":
 
         # Contoh input
         input_example = X_train.iloc[:2].copy()
-        input_example.iloc[0, 0] = np.nan  # Secara manual tambahkan NaN pada satu kolom integer
+        # Pastikan tidak ada NaN pada input_example
+        input_example = input_example.fillna(0)
 
         # Signature model
         signature = infer_signature(X_train, clf.predict(X_train))
 
         # Log final model
         mlflow.sklearn.log_model(
-            clf, 
-            "model_heart_disease_failure",
-            input_example=input_example,
-            signature=signature
+            sk_model=clf, 
+            artifact_path="model_heart_disease_failure",
+            input_example=input_example
         )
-
-        # DagsHub logger (optional but recommended)
-        with dagshub_logger() as logger:
-            logger.log_hyperparams({
-                "model": "SGDClassifier",
-                "batch_size": batch_size,
-                "online": True
-            })
-            logger.log_metrics({
-                "accuracy": acc,
-                "precision": prec,
-                "recall": rec,
-                "f1_score": f1
-            })
