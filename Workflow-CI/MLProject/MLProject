@@ -1,4 +1,4 @@
-name: heart_disease_retrain_project
+name: heart_disease_retrain
 
 conda_env: conda.yaml
 
