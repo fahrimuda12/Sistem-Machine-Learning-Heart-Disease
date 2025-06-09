@@ -11,8 +11,6 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.utils import shuffle
 from mlflow.models.signature import infer_signature
 
-
-
 dagshub.init(repo_owner='fahrimuda12', repo_name='heart-disease', mlflow=True)
 # Set MLflow Tracking URI
 # mlflow.set_tracking_uri("http://127.0.0.1:5000/")
@@ -27,17 +25,6 @@ experiment_name = "Online Training Heart Disease Failure"
 # Mendapatkan ID eksperimen
 experiment = mlflow.get_experiment_by_name(experiment_name)
 experiment_id = experiment.experiment_id
-
-# # Mendapatkan semua runs dalam eksperimen dan memilih run terbaru
-# runs = mlflow.search_runs(experiment_ids=[experiment_id], order_by=["start_time DESC"])
-# if runs.empty:
-#     raise ValueError("No runs found for the experiment. Please run a training job first.")
-# latest_run_id = runs.iloc[0]["run_id"]  # Run ID terbaru
-
-# # Mendapatkan path model dari MLflow artifact
-# artifact_uri = f"runs:/{latest_run_id}/model_artifacts/online_model.joblib"
-# local_path = mlflow.artifacts.download_artifacts(artifact_uri)
-
 # Memuat dataset 
 data = pd.read_csv('./dataset/failure_heart_preprocessing.csv', sep=',')
 
