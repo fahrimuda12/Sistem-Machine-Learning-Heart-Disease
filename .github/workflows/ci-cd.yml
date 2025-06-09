@@ -40,6 +40,7 @@ jobs:
       # Install dependencies including mlflow
       - name: Install dependencies
         run: |
+          source $(conda info --base)/etc/profile.d/conda.sh
           conda activate mlflow-env
           pip install mlflow dagshub
 
