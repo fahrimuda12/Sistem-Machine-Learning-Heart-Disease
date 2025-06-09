@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  CSV_URL: "Workflow-CI/MLProject/dataset/failure_heart_preprocessing.csv"
+  CSV_URL: "MLProject/dataset/failure_heart_preprocessing.csv"
   TARGET_VAR: "HeartDisease"
   EXPERIMENT_NAME: "CI/CD Heart Disease Model"
 
@@ -34,7 +34,7 @@ jobs:
       #   with:
       #     auto-update-conda: true
       #     activate-environment: mlflow-env
-      #     environment-file: Workflow-CI/MLProject/conda.yaml
+      #     environment-file: MLProject/conda.yaml
       #     auto-activate-base: false
 
       # # Install dependencies including mlflow
@@ -59,13 +59,18 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r Workflow-CI/MLProject/requirements.txt
-          
+          pip install -r MLProject/requirements.txt
+      
+      - name: Debug Environment
+        run: |
+          echo "MLFLOW_TRACKING_URI: $MLFLOW_TRACKING_URI"
+          echo "MLFLOW_TRACKING_USERNAME: $MLFLOW_TRACKING_USERNAME"
+
+
       # Run as a mlflow project
       - name: Run mlflow project
         run: |
-          cd Workflow-CI/MLProject
-          mlflow run . --env-manager=conda -P experiment_name="${EXPERIMENT_NAME}"
+          mlflow run MLProject --env-manager=local
       
       # Save models to GitHub Repository
       - name: Save mlruns to repo
