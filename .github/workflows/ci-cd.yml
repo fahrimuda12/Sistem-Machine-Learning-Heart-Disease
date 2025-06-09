@@ -65,7 +65,7 @@ jobs:
       - name: Run mlflow project
         run: |
           cd Workflow-CI/MLProject
-          mlflow run . --env-manager=conda
+          mlflow run . --env-manager=conda -P experiment_name="${EXPERIMENT_NAME}"
       
       # Save models to GitHub Repository
       - name: Save mlruns to repo
