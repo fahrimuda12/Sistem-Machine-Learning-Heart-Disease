@@ -3,8 +3,6 @@ import mlflow
 import numpy as np 
 import mlflow.sklearn
 import dagshub
-import joblib
-from dagshub import dagshub_logger
 from sklearn.linear_model import SGDClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
@@ -14,10 +12,10 @@ import warnings
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    dagshub.init(repo_owner='fahrimuda12', repo_name='heart-disease', mlflow=True)
+    # tidak bisa memakai dagshub jika dilakukan workflow CI/
+    # dagshub.init(repo_owner='fahrimuda12', repo_name='heart-disease', mlflow=True)
 
     # Set MLflow Tracking URI
-    # mlflow.set_tracking_uri("http://127.0.0.1:5000/")
     mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
 
     # Nama eksperimen yang ingin dicari
@@ -106,7 +104,8 @@ if __name__ == "__main__":
 
         # Log final model
         mlflow.sklearn.log_model(
-            sk_model=clf, 
+            sk_model=clf,
             artifact_path="model_heart_disease_failure",
-            input_example=input_example
+            input_example=input_example,
+            signature=signature
         )
