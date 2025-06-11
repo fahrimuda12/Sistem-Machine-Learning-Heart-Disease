@@ -17,7 +17,7 @@ def inference(transformed_data):
    payload = {
       "dataframe_records": transformed_data
    }
-   response = requests.post("http://localhost:5004/invocations", json=payload)
+   response = requests.post("http://localhost:8000/invocations", json=payload)
 
    # labelling hasil predict
    if response.status_code != 200:
@@ -52,9 +52,11 @@ def inference(transformed_data):
 #    'Flat'             # ST_Slope (object)
 # ]
 
-new_data = [
-   49,'F','NAP',160,180,0,'Normal',156,'N',1,'Flat'
-]
+# new_data = [
+#    49,'F','NAP',160,180,0,'Normal',156,'N',1,'Flat'
+# ]
+
+new_data = [100,'F','NAP',160,180,0,'ST',156,'N',1,'Flat']
 
 pipeline_path = 'preprocessor_pipeline.joblib'
 col = pd.read_csv('data.csv')
