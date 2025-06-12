@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  CSV_URL: "MLProject/dataset/failure_heart_preprocessing.csv"
+  CSV_URL: "Workflow-CI/MLProject/dataset/failure_heart_preprocessing.csv"
   TARGET_VAR: "HeartDisease"
   EXPERIMENT_NAME: "CI/CD Heart Disease Model"
 
@@ -68,19 +68,19 @@ jobs:
         shell: bash -l {0}
         run: |
           conda activate heart_disease_env
-          cd MLProject 
+          cd Workflow-CI/MLProject 
           mlflow run . --experiment-name "model_heart_disease_failure"
       
       - name: List generated artifacts
         shell: bash -l {0}
         run: |
           echo "Generated files:"
-          find MLProject/ -name "*.pkl" -o -name "*.joblib" -o -name "model_heart_disease_failure" | head -20
+          find Workflow-CI/MLProject/ -name "*.pkl" -o -name "*.joblib" -o -name "model_heart_disease_failure" | head -20
       
       - name: Show MLflow runs
         shell: bash -l {0}
         run: |
-          cd MLProject
+          cd Workflow-CI/MLProject
           echo "MLflow runs:"
           ls -la model_heart_disease_failure/ 2>/dev/null || echo "No model_heart_disease_failure directory found"
 
@@ -90,7 +90,7 @@ jobs:
         shell: bash -l {0}
         run: |
           conda activate heart_disease_env
-          cd MLProject
+          cd Workflow-CI/MLProject
           python -c "
           import mlflow
           client = mlflow.tracking.MlflowClient()
@@ -127,7 +127,7 @@ jobs:
       - name: Build Docker Model
         shell: bash -l {0}
         run: |
-          cd MLProject
+          cd Workflow-CI/MLProject
           mlflow models build-docker --model-uri ./model_heart_disease_failure --name heart_disease
 
       # Login to Docker Hub
